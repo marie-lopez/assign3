@@ -1,0 +1,15 @@
+- Entry One:
+    I have constructed the main set up of the board and pressing each square causes an X to appear
+    I was having trouble getting Ubuntu to work with my GitHub but I seem to have figured out how to
+    run my most recent commit on it. I've learned I have to use git log to check to hash of the recent commit
+    then I have to do git checkout <hash> then I'm able to do ./helper dev to run the program.
+    I'm familiar with the concepts of React thanks to the tutorial so following the tic-tac-toe guide is
+    fairly simple. Each square is a button and once clicked it changes the value of the array and what
+    pops up. The function Square deals with the grouping of buttons and handleClick function determines
+    what pops up on the squares once clicked.
+
+- Entry Two:
+    I've made it so clicking the squares alternates whether it is a X showing or a O showing by utilizing the
+    the handleClick function where i is a boolean and if xIsNext is false then it sets the next square to be 0.
+    I've added the calculateWinner function where it does such that, calculates the winner of the tic tac toe game
+    by using an array where it calculates the different positionings to see if they line up to three in a row.
