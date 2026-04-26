@@ -35,14 +35,5 @@ export default function Board(){
       <Square value={squares[8]} onSquareClick={() => handleClick(9)} />
     </div>
     </>
-  );
-}
-
-
-export default function App() {
-  const [name, setName] = React.useState('World')
-
-  return (
-  
-  );
+  )
 }
