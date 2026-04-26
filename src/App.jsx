@@ -5,7 +5,7 @@ import { useState } from 'react';
 const { Badge, Button, Card } = ReactBootstrap
 
 function Square({ value, onSquareClick }){
-  return <Button className="square" onClick={onSquareClick}>{value}</Button>;
+  return (<Button className="square" onClick={onSquareClick}>{value}</Button>);
 }
 
 export default function Board(){
@@ -35,5 +35,6 @@ export default function Board(){
       <Square value={squares[8]} onSquareClick={() => handleClick(9)} />
     </div>
     </>
-  )
+  );
 }
+
