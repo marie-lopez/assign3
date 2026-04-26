@@ -14,7 +14,7 @@ export default function App() {
           <p className="mb-3 text-secondary">
             This starter is set up to match the React Essentials notes more closely.
             For the assignment, build the tic-tac-toe tutorial in this file and leave
-            mounting to <code>src/main.jsx</code>.
+            mounting to whoa <code>src/main.jsx</code>.
           </p>
           <div className="d-flex gap-2 flex-wrap align-items-center">
             <Button variant="primary" onClick={() => setName('CS 35L')}>
