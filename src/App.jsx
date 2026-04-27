@@ -5,9 +5,9 @@ const { Button } = ReactBootstrap;
 
 function Square({ value, onSquareClick, }) {
   return (
-    <Button className="square" onClick={onSquareClick}>
+    <button className="square" onClick={onSquareClick}>
       {value}
-    </Button>
+    </button>
   );
 }
 
@@ -51,8 +51,8 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
       const temp = nextSquares.slice();
       temp[selected] = null;
       temp[i] = player;
-
-      if (!calculateWinner(temp)) {
+      const isMovingCenter = selected === 4;
+      if (!calculateWinner(temp) && !isMovingCenter) {
         return;
       }
     }
