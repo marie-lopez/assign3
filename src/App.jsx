@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactBootstrap from 'react-bootstrap'
-import * as React from 'react';
 import { useState } from 'react';
+const { Button } = ReactBootstrap;
 
 function Square({ value, onSquareClick, }) {
   return (
@@ -13,7 +13,7 @@ function Square({ value, onSquareClick, }) {
 
 function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
   function handleClick(i) {
-    if (calculateWinner(squares)||squares[i]) return;
+    if (calculateWinner(squares)) return;
 
     const player = xIsNext ? 'X' : 'O';
     const playerSquares = squares.map((val, idx) => (val === player ? idx : null)).filter(v => v !== null);
@@ -80,7 +80,6 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
               <Square
                 key={i}
                 value={squares[i]}
-                isSelected={selected === i}
                 onSquareClick={() => handleClick(i)}
               />
             );
