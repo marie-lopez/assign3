@@ -13,3 +13,16 @@
     the handleClick function where i is a boolean and if xIsNext is false then it sets the next square to be 0.
     I've added the calculateWinner function where it does such that, calculates the winner of the tic tac toe game
     by using an array where it calculates the different positionings to see if they line up to three in a row.
+
+- Entry Three:
+    I've completed the guidelines of the assignment. Square is a button and displays either an X or a C by using onSquareClick. Board
+    is where square is being clicked, placing the symbols of X or O for the players while only allowing three moves. Once the three
+    moves are up, then the symbol can be clicked on to move to an adjacent square while also checking for the validity of those squares. It
+    also shows the game status where it will display the next players turn being X or O and or shows who the winner is. The handleClick function
+    is when a square is clicked it determines the placement of the symbols, which symbol is chosen by the player, allowing for movement of said
+    piece and it has the rules implemented where it can't move to squares that already have symbols. The Game area has the full history of the
+    time travel elements, it tracks the current move and builds the move history where it allows the player to jump back to earlier places
+    in the game, just what was in the tutorial. the handlePlay function updates the game history when a symbol is place and it cuts off
+    any moves that was performed in the future if the player clicked to go back to a previous step in the game so it updates what
+    the current move is and resets. The jumpTo function is the time travel where it jumps to a previous version of the game. calculateWinner
+    is where it checks all possible winning combinations and returns the winner if the game is over, just like the tutorial.

@@ -14,13 +14,11 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
     if (calculateWinner(squares)) return;
 
     const player = xIsNext ? 'X' : 'O';
-
     const playerSquares = squares
       .map((val, idx) => (val === player ? idx : null))
       .filter(v => v !== null);
 
     const nextSquares = squares.slice();
-
     const hasThreePieces = playerSquares.length >= 3;
 
     if (!hasThreePieces) {
@@ -42,12 +40,12 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
     const c1 = selected % 3;
     const r2 = Math.floor(i / 3);
     const c2 = i % 3;
-
     const isAdjacent =
       Math.abs(r1 - r2) <= 1 &&
       Math.abs(c1 - c2) <= 1;
-
-    if (!isAdjacent) return;
+    const hasCenter = squares[4] === player;
+    const centerRuleActive = hasCenter && selected === 4;
+    if (!isAdjacent && !centerRuleActive) return;
 
     nextSquares[selected] = null;
     nextSquares[i] = player;
@@ -55,9 +53,7 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
     setSelected(null);
     onPlay(nextSquares);
   }
-
   const winner = calculateWinner(squares);
-
   const status = winner
     ? 'Winner: ' + winner
     : 'Next player: ' + (xIsNext ? 'X' : 'O');
@@ -88,7 +84,6 @@ export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [selected, setSelected] = useState(null);
-
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 

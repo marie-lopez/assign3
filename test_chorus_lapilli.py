@@ -155,6 +155,32 @@ class TestChorusLapilli(unittest.TestCase):
         tiles[0].click()
         self.assertTileIs(tiles[0], self.SYMBOL_X)
 
+    def test_x_and_o_alternate(self):
+        '''X and O should alternate turns after clicks'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        tiles[0].click() 
+        tiles[1].click() 
+        tiles[2].click() 
+        self.assertTileIs(tiles[0], self.SYMBOL_X)
+        self.assertTileIs(tiles[1], self.SYMBOL_O)
+        self.assertTileIs(tiles[2], self.SYMBOL_X)
+    
+    def test_cannot_overwrite_tile(self):
+        '''Clicking an occupied tile should do nothing'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        tiles[0].click() 
+        tiles[0].click() 
+        self.assertTileIs(tiles[0], self.SYMBOL_X)
+
+    def test_max_three_pieces_rule(self):
+        '''Player should not place more than 3 pieces'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        tiles[0].click()
+        tiles[1].click()
+        tiles[2].click()
+        tiles[3].click() 
+        x_count = sum(1 for t in tiles if t.text.strip() in self.SYMBOL_X)
+        self.assertEqual(x_count, 3)
 
 # ================= [DO NOT MAKE ANY CHANGES BELOW THIS LINE] =================
 
