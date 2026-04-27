@@ -26,10 +26,11 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
       return;
     }
 
-    if (selected === null) {
-      if (squares[i] === player) {
-        setSelected(i);
+    if (playerSquares.length>= 3 && selected === null) {
+      if (squares[i] !== player) {
+        return;
       }
+      setSelected(i);
       return;
     }
 
@@ -44,15 +45,15 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
       Math.abs(c1 - c2) <= 1;
 
     if (!isAdjacent) return;
-
     const hasCenter = squares[4] === player;
 
     if (hasCenter && selected !== 4) {
       const temp = nextSquares.slice();
       temp[selected] = null;
       temp[i] = player;
+      const isWinningMove = calculateWinner(temp);
       const isMovingCenter = selected === 4;
-      if (!calculateWinner(temp) && !isMovingCenter) {
+      if (!isWinningMove && !isMovingCenter) {
         return;
       }
     }
