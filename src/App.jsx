@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as ReactBootstrap from 'react-bootstrap'
 import { useState } from 'react';
-const { Button } = ReactBootstrap;
 
 function Square({ value, onSquareClick, }) {
   return (
@@ -26,7 +25,7 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
       return;
     }
 
-    if (playerSquares.length>= 3 && selected === null) {
+    if (playerSquares.length >= 3 && selected === null) {
       if (squares[i] !== player) {
         return;
       }
@@ -40,9 +39,7 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
     const r2 = Math.floor(i / 3);
     const c2 = i % 3;
 
-    const isAdjacent =
-      Math.abs(r1 - r2) <= 1 &&
-      Math.abs(c1 - c2) <= 1;
+    const isAdjacent = Math.abs(r1 - r2) <= 1 && Math.abs(c1 - c2) <= 1;
 
     if (!isAdjacent) return;
     const hasCenter = squares[4] === player;
@@ -58,6 +55,16 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
       }
     }
 
+    if (hasCenter && selected === 4) {
+      const temp = nextSquares.slice();
+      temp[selected] = null;
+      temp[i] = player;
+      const isWinningMove = calculateWinner(temp);
+      if (!isWinningMove) {
+        return;
+      }
+    }
+
     nextSquares[selected] = null;
     nextSquares[i] = player;
 
@@ -66,9 +73,7 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
   }
 
   const winner = calculateWinner(squares);
-  const status = winner
-    ? 'Winner: ' + winner
-    : 'Next player: ' + (xIsNext ? 'X' : 'O');
+  const status = winner ? 'Winner: ' + winner : 'Next player: ' + (xIsNext ? 'X' : 'O');
 
   return (
     <>
