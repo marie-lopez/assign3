@@ -1,8 +1,7 @@
 import * as React from 'react'
-import * as ReactBootstrap from 'react-bootstrap'
 import { useState } from 'react';
 
-function Square({ value, onSquareClick, }) {
+function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
       {value}
@@ -15,55 +14,40 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
     if (calculateWinner(squares)) return;
 
     const player = xIsNext ? 'X' : 'O';
-    const playerSquares = squares.map((val, idx) => (val === player ? idx : null)).filter(v => v !== null);
+
+    const playerSquares = squares
+      .map((val, idx) => (val === player ? idx : null))
+      .filter(v => v !== null);
+
     const nextSquares = squares.slice();
 
-    if (playerSquares.length < 3) {
+    const hasThreePieces = playerSquares.length >= 3;
+
+    if (!hasThreePieces) {
       if (squares[i]) return;
       nextSquares[i] = player;
       onPlay(nextSquares);
       return;
     }
 
-    if (playerSquares.length >= 3 && selected === null) {
-      if (squares[i] !== player) {
-        return;
-      }
+    if (selected === null) {
+      if (squares[i] !== player) return;
       setSelected(i);
       return;
     }
 
     if (squares[i]) return;
+
     const r1 = Math.floor(selected / 3);
     const c1 = selected % 3;
     const r2 = Math.floor(i / 3);
     const c2 = i % 3;
 
-    const isAdjacent = Math.abs(r1 - r2) <= 1 && Math.abs(c1 - c2) <= 1;
+    const isAdjacent =
+      Math.abs(r1 - r2) <= 1 &&
+      Math.abs(c1 - c2) <= 1;
 
     if (!isAdjacent) return;
-    const hasCenter = squares[4] === player;
-
-    if (hasCenter && selected !== 4) {
-      const temp = nextSquares.slice();
-      temp[selected] = null;
-      temp[i] = player;
-      const isWinningMove = calculateWinner(temp);
-      const isMovingCenter = selected === 4;
-      if (!isWinningMove && !isMovingCenter) {
-        return;
-      }
-    }
-
-    if (hasCenter && selected === 4) {
-      const temp = nextSquares.slice();
-      temp[selected] = null;
-      temp[i] = player;
-      const isWinningMove = calculateWinner(temp);
-      if (!isWinningMove) {
-        return;
-      }
-    }
 
     nextSquares[selected] = null;
     nextSquares[i] = player;
@@ -73,11 +57,15 @@ function Board({ xIsNext, squares, onPlay, selected, setSelected }) {
   }
 
   const winner = calculateWinner(squares);
-  const status = winner ? 'Winner: ' + winner : 'Next player: ' + (xIsNext ? 'X' : 'O');
+
+  const status = winner
+    ? 'Winner: ' + winner
+    : 'Next player: ' + (xIsNext ? 'X' : 'O');
 
   return (
     <>
       <div className="status">{status}</div>
+
       {[0, 3, 6].map(row => (
         <div className="board-row" key={row}>
           {[0, 1, 2].map(col => {
@@ -114,8 +102,8 @@ export default function Game() {
     setSelected(null);
   }
 
-  function jumpTo(nextMove) {
-    setCurrentMove(nextMove);
+  function jumpTo(move) {
+    setCurrentMove(move);
     setSelected(null);
   }
 
@@ -138,6 +126,7 @@ export default function Game() {
           setSelected={setSelected}
         />
       </div>
+
       <div className="game-info">
         <ol>{moves}</ol>
       </div>
@@ -151,7 +140,8 @@ function calculateWinner(squares) {
     [0,3,6],[1,4,7],[2,5,8],
     [0,4,8],[2,4,6]
   ];
-  for (let [a,b,c] of lines) {
+
+  for (let [a, b, c] of lines) {
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
